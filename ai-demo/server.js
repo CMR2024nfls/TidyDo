@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -83,7 +84,8 @@ app.get('/api/providers', (req, res) => {
   res.json(PROVIDERS);
 });
 
-app.use(express.static(__dirname));
+const distDir = path.join(__dirname, 'dist');
+app.use(express.static(fs.existsSync(distDir) ? distDir : __dirname));
 
 app.listen(PORT, () => {
   console.log(`TidyDo API proxy running at http://localhost:${PORT}`);

@@ -21,17 +21,31 @@
 
 ## 技术结构
 
-- `index.html` / `style.css` / `app.js`：前端页面与交互逻辑。
-- `server.js`：Express 代理服务器，统一转发请求到各 AI 服务器，避免前端跨域并保护密钥。
+- 前端：Vue 3（Composition API）+ Vite，单文件组件，带简易 Markdown 渲染。
+  - `index.html` / `vite.config.js`：Vite 入口与配置（开发时 `/api` 代理到后端）。
+  - `src/main.js` / `src/App.vue`：应用入口与全局状态。
+  - `src/components/`：`SettingsPanel.vue`（厂商/密钥/模型/System Prompt）、`ChatWindow.vue`（对话区/输入区）、`MessageBubble.vue`（单条消息）。
+  - `src/utils/markdown.js`：简易 Markdown 渲染器。
+- `server.js`：Express 代理服务器，统一转发请求到各 AI 服务器，避免前端跨域并保护密钥；构建后同时托管 `dist/`。
 
 ## 运行
 
+**开发模式**（前端热更新 + 后端代理，一条命令）：
+
 ```bash
 npm install
-npm start
+npm run dev
 ```
 
-启动后访问 `http://localhost:3000`（默认端口 `3000`，可用 `PORT` 环境变量修改）。
+- Vite 前端：`http://localhost:5173`
+- Express 代理：`http://localhost:3000`（`/api` 由 Vite 自动转发）
+
+**生产模式**：
+
+```bash
+npm run build   # 构建前端到 dist/
+npm start       # Express 托管 dist/ + /api，访问 http://localhost:3000
+```
 
 ## 使用
 
@@ -40,6 +54,8 @@ npm start
 3. 按需勾选 **Think** 或 **JSON Output**。
 4. 输入消息发送（Enter 发送，Shift+Enter 换行），进行多轮对话。
 5. 点击 **Clear** 清空当前对话。
+
+回复支持 Markdown 渲染：标题、粗体/斜体、行内代码、围栏代码块、列表、引用、链接、分隔线。
 
 ## 请求参数说明
 
