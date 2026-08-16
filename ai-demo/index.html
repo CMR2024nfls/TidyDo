@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TidyDo AI Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>TidyDo AI Chat</h1>
+    </header>
+
+    <div id="settings">
+      <div id="provider-tabs">
+        <button class="provider-tab active" data-provider="deepseek">DeepSeek</button>
+        <button class="provider-tab" data-provider="siliconflow">SiliconFlow</button>
+        <button class="provider-tab" data-provider="minimax">MiniMax</button>
+        <button class="provider-tab" data-provider="zhipu">GLM</button>
+      </div>
+      <div class="settings-body">
+        <div class="setting-row">
+          <label>API Key</label>
+          <div class="input-group">
+            <input type="password" id="api-key" placeholder="sk-..." spellcheck="false">
+            <button id="save-key">Save</button>
+          </div>
+          <span id="key-status"></span>
+        </div>
+        <div class="setting-row">
+          <label>Model</label>
+          <select id="model-select"></select>
+        </div>
+        <div class="setting-row">
+          <label>System</label>
+          <textarea id="system-prompt" rows="3" placeholder="Optional: set a system prompt..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="chat-container">
+      <div id="messages"></div>
+      <div id="input-area">
+        <textarea id="message-input" rows="1" placeholder="Type a message... (Enter to send, Shift+Enter for new line)"></textarea>
+        <div id="input-bar">
+          <label class="json-toggle" title="Enable deep thinking (reasoning)">
+            <input type="checkbox" id="think-mode">
+            Think
+          </label>
+          <label class="json-toggle" title="Request response in JSON format">
+            <input type="checkbox" id="json-mode">
+            JSON Output
+          </label>
+          <button id="clear-btn">Clear</button>
+          <button id="send-btn">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
